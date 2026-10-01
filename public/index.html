@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro - Seguridad en Barrios</title>
+  <style>
+    body { font-family: sans-serif; max-width: 380px; margin: 40px auto; padding: 0 16px; }
+    label { display: block; margin-top: 12px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { margin-top: 16px; padding: 10px 16px; }
+    #mensaje { margin-top: 16px; font-weight: bold; }
+    .ok { color: green; } .error { color: crimson; }
+  </style>
+</head>
+<body>
+  <h1>Crear cuenta de residente</h1>
+  <label>Nombre <input id="nombre"></label>
+  <label>Correo <input id="correo" type="email"></label>
+  <label>Contraseña (mín. 8) <input id="password" type="password"></label>
+  <button id="enviar">Registrarme</button>
+  <p id="mensaje"></p>
+  <script>
+    document.getElementById('enviar').addEventListener('click', async () => {
+      const msg = document.getElementById('mensaje');
+      const res = await fetch('/api/usuarios/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: document.getElementById('nombre').value,
+          correo: document.getElementById('correo').value,
+          password: document.getElementById('password').value,
+        }),
+      });
+      const data = await res.json();
+      msg.className = res.ok ? 'ok' : 'error';
+      msg.textContent = res.ok ? `¡Cuenta creada! Bienvenido/a ${data.nombre}` : data.error;
+    });
+  </script>
+</body>
+</html>
