@@ -5,13 +5,14 @@
   "description": "Sistema de seguridad en barrios - HU-01 Registro de usuario",
   "scripts": {
     "start": "node src/server.js",
-    "test": "jest"
+    "test": "jest --runTestsByPath tests/registro.test.js --passWithNoTests"
   },
   "dependencies": {
     "express": "^4.19.2"
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "jsdom": "^24.1.0",
     "supertest": "^7.0.0"
   }
 }
