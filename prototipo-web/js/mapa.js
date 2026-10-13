@@ -1,0 +1,4 @@
+/* MAPA (HU-10): marcadores, capas y estado del barrio */
+function mark(c,x,y,l,cls){const g=document.createElementNS("http://www.w3.org/2000/svg","g");g.setAttribute("class",cls);g.innerHTML=`<circle cx="${x}" cy="${y}" r="9" fill="${c}" class="${cls=="m-al"?"pulse":""}"/><text x="${x+13}" y="${y+4}">${l}</text>`;$("#mk").append(g)}
+function stats(){const a=S.alerts.filter(x=>x.e!="ATENDIDA").length;$("#stats").innerHTML=`<div class="item"><span>Cámaras activas</span><b>3 de 4</b></div><div class="item"><span>Incidentes reportados</span><b>${S.incs.length}</b></div><div class="item"><span>Alertas abiertas</span><b style="color:${a?"var(--bad)":"var(--ok)"}">${a}</b></div>`}
+document.querySelectorAll("[data-l]").forEach(c=>c.onchange=()=>$("#map").classList.toggle(c.dataset.l,!c.checked));
